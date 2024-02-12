@@ -9,12 +9,12 @@ import java.util.stream.Stream;
 public class StreamApiPractise {
     public static void main(String[] args) {
         List<Student> studentList = Stream.of(
-                new Student(1,"sachin",6, Arrays.asList("9998","766765"),"fdgCEfde"),
-                new Student(2,"harshita",5, Arrays.asList("129998","676765"),"sgCgfdgE"),
-                new Student(3,"Nisarg",2, Arrays.asList("329998","676975"),"sdgCgfE"),
-                new Student(4,"navya",1, Arrays.asList("549998","677565"),"sdCEgre"),
-                new Student(5,"suresh",7, Arrays.asList("659998","678665"),"dfgCgfdE"),
-                new Student(6,"nirmala",8, Arrays.asList("899998","6786865"),"dfgCgfdE")
+                new Student(1,"sachin","male",30,6, Arrays.asList("9998","766765"),"fdgCEfde"),
+                new Student(2,"harshita","female",28,5, Arrays.asList("129998","676765"),"sgCgfdgE"),
+                new Student(3,"Nisarg","male",5,2, Arrays.asList("329998","676975"),"sdgCgfE"),
+                new Student(4,"navya","female",5,1, Arrays.asList("549998","677565"),"sdCEgre"),
+                new Student(5,"suresh","male",60,7, Arrays.asList("659998","678665"),"dfgCgfdE"),
+                new Student(6,"nirmala","female",55,8, Arrays.asList("899998","6786865"),"dfgCgfdE")
         )
                 .toList();
                 //.collect(Collectors.toList());
@@ -55,7 +55,28 @@ public class StreamApiPractise {
         studentList.stream().collect(Collectors.groupingBy(Student :: getDepartment,Collectors.counting()));
 
         //case 7 find the department name which has max number of student
-        studentList.stream().collect(Collectors.groupingBy(Student :: getDepartment,Collectors.counting())).entrySet().stream().max(Map.Entry.comparingByValue());
+        Map.Entry<String,Long> departmentKeySet  = studentList.stream()
+                .collect(Collectors.groupingBy(Student :: getDepartment,Collectors.counting()))
+                .entrySet().stream().max(Map.Entry.comparingByValue()).get();
+        System.out.println(departmentKeySet);
+
+        //case 8 find the average age of male and female student
+       Map<String, Double> avgAgeByGender  = studentList.stream().collect(Collectors.groupingBy(Student :: getGender , Collectors.averagingInt(Student::getAge)));
+        System.out.println(avgAgeByGender);
+
+        //case 9 find the highest rank on each department
+       Map<String, Optional<Student>> studentRankMap=
+               studentList.stream().collect(Collectors.groupingBy(Student::getDepartment, Collectors.minBy(Comparator.comparing(Student :: getRank))));
+
+        System.out.println(studentRankMap);
+
+        //case 10 find the student who has second rank
+        Student studentSecondRankV1  =  studentList.stream().sorted(Comparator.comparing(Student :: getRank )).collect(Collectors.toList()).get(1);
+        Student studentSecondRankV2  =  studentList.stream().sorted(Comparator.comparing(Student :: getRank )).skip(1).findFirst().get();
+
+        System.out.println(studentSecondRankV1);
+        System.out.println(studentSecondRankV2);
+
     }
 
 
