@@ -1,3 +1,4 @@
+package stream;
 
 import java.util.*;
 import java.util.function.Predicate;
@@ -21,18 +22,18 @@ public class StreamApiPractise {
 
         //case 1 Rank is between 3 and 7
         Predicate<Student> studentPredicate = student -> student.getRank() >= 3 && student.getRank() <= 7;
-        //Predicate<Student> studentPredicate1  = Student :: getRank >= 3;
+        //Predicate<stream.Student> studentPredicate1  = stream.Student :: getRank >= 3;
         List<Student> studentList1 = studentList.stream().filter(s -> s.getRank() >= 3 && s.getRank() <=7).toList();
         System.out.println(studentList1);
        //ImmutableCollections
-        //studentList1.add(new Student(1,"nirmala",8, Arrays.asList("899998","6786865"),"dfgdfCE"));
+        //studentList1.add(new stream.Student(1,"nirmala",8, Arrays.asList("899998","6786865"),"dfgdfCE"));
         //System.out.println(studentList1);
 
         //case 2, department contain CE and sort it by name , if name is name sort if by rank
         Stream<Student> studentStream = studentList.stream().filter(student -> student.getDepartment().contains("CE"));
         List<Student> studentList2 = studentStream.sorted(Comparator.comparing(Student::getName).thenComparing(Student :: getRank)).toList();
        // reverse order
-        //List<Student> studentList3 = studentStream.sorted(Comparator.comparing(Student::getName,Comparator.reverseOrder()).thenComparing(Student :: getRank)).toList();
+        //List<stream.Student> studentList3 = studentStream.sorted(Comparator.comparing(stream.Student::getName,Comparator.reverseOrder()).thenComparing(stream.Student :: getRank)).toList();
         System.out.println(studentList2);
 
 
@@ -50,6 +51,9 @@ public class StreamApiPractise {
         //case 5 , group the student by department name , return map which key is department name and value is list of student which belongs to same department
         Map<String,List<Student>> departmentMap = studentList.stream().collect(Collectors.groupingBy(Student :: getDepartment));
         System.out.println(departmentMap);
+        //find student in second department
+       List<Student> studentsX =  departmentMap.entrySet().stream().map(entry -> entry.getValue()).skip(1).findFirst().get();
+        System.out.println(studentsX);
 
         //case 6 , map of department name and count against it
         studentList.stream().collect(Collectors.groupingBy(Student :: getDepartment,Collectors.counting()));

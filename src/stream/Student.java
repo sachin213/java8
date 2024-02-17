@@ -1,3 +1,4 @@
+package stream;
 
 import java.util.List;
 
@@ -91,7 +92,7 @@ public class Student{
 
     @Override
     public String toString() {
-        return "Student{" +
+        return "stream.Student{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", rank=" + rank +

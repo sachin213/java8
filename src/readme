@@ -1,0 +1,7 @@
+****Map
+: accept function, to transform the input, like make string uppercase or get value of property from object,
+: used for one to one mapping
+
+***FlatMap
+:Use for one to many mapping,like list of list which required to convert to flat list
+
