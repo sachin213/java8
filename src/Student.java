@@ -5,15 +5,36 @@ import java.util.List;
 public class Student{
     private Integer id;
     private String name;
-    private  int rank;
+    private  Integer rank;
     private List<String> contacts;
     private String department;
 
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+
+    private String gender;
+    private Integer age;
+
     private List<Student> peerConnection;
 
-    public Student(Integer id, String name, int rank, List<String> contacts, String department) {
+    public Student(Integer id, String name,String gender,Integer age, int rank, List<String> contacts, String department) {
         this.id = id;
         this.name = name;
+        this.gender = gender;
+        this.age = age;
         this.rank = rank;
         this.contacts = contacts;
         this.department = department;
@@ -44,7 +65,7 @@ public class Student{
         this.name = name;
     }
 
-    public int getRank() {
+    public Integer getRank() {
         return rank;
     }
 
